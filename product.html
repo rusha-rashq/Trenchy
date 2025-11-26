@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details - Trenchy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+    margin: 0;
+}
+
+header.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar .logo {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #0D47A1, #1E88E5);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.navbar nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+}
+.navbar nav a:hover {
+    color: #1E88E5;
+}
+.navbar .icons span {
+    margin-left: 1rem;
+    font-size: 1.3rem;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.product-box {
+    display: flex;
+    gap: 2rem;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(30,136,229,0.15);
+}
+
+.product-box img {
+    width: 420px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.details h1 {
+    margin: 0;
+    color: #0D47A1;
+}
+
+.price {
+    color: #1E88E5;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+.related {
+    margin-top: 3rem;
+}
+
+.related h2 {
+    color: #0D47A1;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(30,136,229,0.12);
+    cursor: pointer;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">Trenchy</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products/men.html">Men</a>
+        <a href="products/women.html">Women</a>
+        <a href="products/misc.html">Misc</a>
+        <a href="products/kids.html">Kids</a>
+    </nav>
+    <div class="icons">
+        <span>🛒</span>
+        <span>👤</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="product-box">
+        <img id="product-img">
+        <div class="details">
+            <h1 id="product-name"></h1>
+            <p class="price" id="product-price"></p>
+            <p id="product-stock"></p>
+            <p id="product-desc"></p>
+        </div>
+    </div>
+
+    <div class="related">
+        <h2>Related Products</h2>
+        <div class="product-grid" id="recommend-grid"></div>
+    </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+console.log("🆔 Product ID:", productId);
+
+// Store globally
+window.CURRENT_PRODUCT_ID = productId;
+
+// Load product details
+fetch(`http://localhost:8000/products/${productId}`)
+  .then(res => res.json())
+  .then(p => {
+    if (!p || p.detail === "Product not found") {
+      alert("Product not found!");
+      return;
+    }
+    document.getElementById("product-img").src = "../" + p.image;
+    document.getElementById("product-name").textContent = p.name;
+    document.getElementById("product-price").textContent = "₹" + p.price;
+    document.getElementById("product-desc").textContent = p.description;
+    document.getElementById("product-stock").textContent =
+        p.stock_level > 0 ? "In Stock" : "Out of Stock";
+    loadRecommendations(p.id, p.category);
+  });
+
+function loadRecommendations(productId, category) {
+  fetch(`http://localhost:8000/products`)
+    .then(res => res.json())
+    .then(products => {
+      const related = products.filter(
+        x => x.category === category && x.id !== productId
+      ).slice(0, 4);
+      related.forEach(r => {
+        document.getElementById("recommend-grid").innerHTML += `
+          <div class="product-card" onclick="openProduct('${r.id}')">
+              <img src="../${r.image}">
+              <div class="info" style="padding:10px">
+                  <h3 style="color:#0D47A1">${r.name}</h3>
+                  <p class="price">₹${r.price}</p>
+              </div>
+          </div>
+        `;
+      });
+    });
+}
+
+function openProduct(id) {
+  window.location.href = "product.html?id=" + id;
+}
+</script>
+
+<div id="chat-launcher" style="
+    position: fixed; bottom: 30px; right: 30px;
+    background: linear-gradient(145deg, #1E88E5, #0D47A1);
+    width: 68px; height: 68px; border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,86,179,0.4);
+    z-index:999;">
+    <img src="../images/bot avatar 2.jpg" style="width:42px;height:42px;border-radius:50%;">
+</div>
+
+<script>
+document.getElementById("chat-launcher").onclick = function () {
+    this.style.display = "none";
+
+    const productId = window.CURRENT_PRODUCT_ID;
+    const currentUrl = window.location.href; // Capture URL here
+
+    let script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js";
+    script.async = true;
+
+    script.onload = () => {
+        WebChat.default({
+            socketUrl: "http://localhost:5005",
+            socketPath: "/socket.io/",
+            
+            // Use the initPayload to set the slot immediately on open
+            initPayload: '/set_product{"product_id":"' + productId + '"}',
+
+            // Pass data natively. Rasa puts this in metadata.customData
+            customData: {
+                language: "en",
+                product_id: productId,
+                page_url: currentUrl,
+            },
+
+            title: "E-commerce Support",
+            subtitle: "Ask me about this product!",
+            profileAvatar: "../images/bot avatar 2.jpg",
+            showCloseButton: true,
+            showFullScreenButton: true,
+            showMessageDate: true,
+            launcherButton: false,
+            
+            // Remove the onSocketEvent "user_uttered" override. 
+            // It often causes issues if not handled perfectly.
+            onSocketEvent: {
+                "user_uttered": (event) => {
+                    const params = new URLSearchParams(window.location.search);
+                    const productId = params.get("id");
+                    const currentUrl = window.location.href;
+
+                    event.metadata = {
+                    product_id: productId,
+                    page_url: currentUrl,
+                    };
+
+                    return event;
+                }
+            }
+
+        });
+    };
+    document.head.appendChild(script);
+};
+</script>
+
+
+</body>
+</html>

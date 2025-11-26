@@ -1,0 +1,163 @@
+version: "3.1"
+
+stories:
+- story: Set product and immediately ask
+  steps:
+  - intent: set_product
+  - action: action_set_product
+  - intent: ask_product_question
+  - action: action_answer_product_question
+
+- story: Set product via payload only
+  steps:
+  - intent: set_product
+  - action: action_set_product
+  # This allows the user to pause before asking
+
+- story: User asks to track package without ID
+  steps:
+  - intent: track_order  # "track package"
+  - action: action_get_order_status  # Action asks for ID
+  - intent: inform_order_id  # "OD12345"
+  - action: action_get_order_status  # Action gives status
+
+- story: User asks to cancel order without ID
+  steps:
+  - intent: cancel_order  # "i want to cancel"
+  - action: utter_ask_order_id_to_cancel # Bot asks for ID
+  - intent: inform_order_id  # "OD67890"
+  - action: action_cancel_order  
+
+- story: User asks to reinstate order without ID
+  steps:
+  - intent: reinstate_order
+  - action: utter_ask_order_id_to_reinstate
+  - intent: inform_order_id
+  - action: action_reinstate_order
+
+- story: User asks to change address (provides ID first)
+  steps:
+  - intent: change_delivery_address
+  - action: utter_ask_order_id_for_address
+  - intent: inform_order_id
+  - action: utter_ask_new_address
+  - intent: inform_address
+  - action: action_change_address
+
+- story: User asks to change address (provides ID and address together)
+  steps:
+  - intent: inform_order_id  
+  - intent: inform_address
+  - action: action_change_address  
+
+- story: User asks to expedite shipping
+  steps:
+  - intent: expedite_shipping
+  - action: utter_ask_order_id_for_expedite
+  - intent: inform_order_id
+  - action: action_expedite_shipping
+
+- story: User asks for invoice
+  steps:
+  - intent: get_invoice
+  - action: utter_ask_order_id_for_invoice
+  - intent: inform_order_id
+  - action: action_get_invoice
+
+- story: User asks to change order details
+  steps:
+  - intent: change_order_details
+  - action: action_change_order_details
+
+- story: User asks for refund policy
+  steps:
+  - intent: get_refund_policy
+  - action: utter_get_refund_policy
+
+- story: User asks for refund status
+  steps:
+  - intent: get_refund_status
+  - action: utter_ask_order_id_for_refund_status
+  - intent: inform_order_id
+  - action: action_get_refund_status
+
+- story: User wants to initiate a return
+  steps:
+  - intent: initiate_return
+  - action: utter_ask_order_id_for_return
+  - intent: inform_order_id
+  - action: action_initiate_return
+
+- story: User wants to initiate an exchange
+  steps:
+  - intent: initiate_exchange
+  - action: utter_ask_order_id_for_exchange
+  - intent: inform_order_id
+  - action: action_initiate_exchange
+
+- story: User reports a damaged item
+  steps:
+  - intent: report_damaged_item
+  - action: utter_ask_order_id_for_damaged
+  - intent: inform_order_id
+  - action: action_report_damaged_item
+
+- story: User reports a missing item
+  steps:
+  - intent: report_missing_item
+  - action: utter_ask_order_id_for_missing
+  - intent: inform_order_id
+  - action: action_report_missing_item
+
+- story: User asks for payment options
+  steps:
+  - intent: check_payment_options
+  - action: utter_payment_options
+
+- story: User asks for shipping options
+  steps:
+  - intent: check_shipping_options
+  - action: utter_shipping_options
+
+- story: User asks for recommendation (with or without budget)
+  steps:
+  - intent: ask_for_recommendation
+  - action: action_get_recommendation
+
+- story: User asks for loyalty points
+  steps:
+  - intent: check_loyalty_points
+  - action: utter_ask_email
+  - intent: inform_email
+  - action: action_check_loyalty_points
+
+- story: User asks to reset password
+  steps:
+  - intent: reset_password
+  - action: utter_ask_email
+  - intent: inform_email
+  - action: action_reset_password
+
+- story: User wants to update profile (does not provide phone)
+  steps:
+  - intent: update_profile_info
+  - action: utter_ask_email
+  - intent: inform_email
+  - action: utter_ask_new_phone_number
+  - intent: inform_phone  # User provides phone
+  - action: action_update_profile
+
+- story: User ignores upsell
+  steps:
+    - slot_was_set:
+        - upsell_opportunity: true
+    - intent: inform
+    - action: action_reset_upsell_slot
+
+- story: User ignores upsell after order delivered
+  steps:
+    - slot_was_set:
+        - upsell_opportunity: true
+    - intent: inform
+    - action: action_reset_upsell_slot
+

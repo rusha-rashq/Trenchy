@@ -1,0 +1,405 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - namaste
+    - kaise ho
+    - hey there
+    - good morning
+
+- intent: goodbye
+  examples: |
+    - bye
+    - alvida
+    - theek hai bye
+    - see you later
+    - goodnight
+
+- intent: track_order
+  examples: |
+    - mera order kahan hai?
+    - order status kya hai
+    - can you track my parcel
+    - mera package kidhar hai bhai
+    - what is the status of my order
+    - bhaiya, package check karna
+    - I want to track my order
+    - track package
+    - mera order [OD12345](order_id) check karo
+    - [OD67890](order_id) ka status kya hai?
+    - I want to know the status of [OD12345](order_id)
+
+- intent: inform_order_id
+  examples: |
+    - mera order id hai [OD12345](order_id)
+    - it is [OD67890](order_id)
+    - [OD12345](order_id)
+    - here is the id: [OD67890](order_id)
+    - [OD12345](order_id)
+    - [OD67890](order_id)
+    - [OD55555](order_id)
+    - [OD90001](order_id)
+    - [OD90002](order_id)
+    - [OD90003](order_id)
+    - [OD90004](order_id)
+    - [OD90005](order_id)
+    - [OD90006](order_id)
+    - mera order ID hai [123-abc](order_id)
+    - order number [OD999](order_id)
+    - ye lo [ABC-987-XYZ](order_id)
+
+
+- intent: cancel_order
+  examples: |
+    - mujhe order cancel karna hai
+    - please cancel my order
+    - can you cancel [OD12345](order_id)?
+    - iss order ko rok do
+    - I want to request a cancellation
+    - I don't want this order anymore
+    - order cancel kar do
+
+- intent: reinstate_order
+  examples: |
+    - I want to reinstate my order
+    - I cancelled my order by mistake
+    - please uncancel [OD67890](order_id)
+    - can you add my order back?
+    - reinstate [OD12345](order_id)
+
+- intent: change_delivery_address
+  examples: |
+    - Can I change the shipping address for my order?
+    - Mera address galat hai, update karna hai
+    - shipping address badalna hai
+    - kya main address change kar sakta hun?
+    - update my delivery location
+    - deliver to a different address
+
+- intent: inform_address
+  examples: |
+    - my new address is [123 Main St, New Delhi](new_address)
+    - [45 B, Park Avenue, Mumbai](new_address)
+    - please send it to [Apartment 5, Royal Complex, Bangalore](new_address)
+    - [123 main street](new_address)
+
+- intent: change_order_details
+  examples: |
+    - Can I change the size/color of my item?
+    - Mujhe is order mein ek aur item add karna hai
+    - I want a different size
+    - change item in my order
+    - size M chahiye, L nahi
+
+- intent: expedite_shipping
+  examples: |
+    - Can I get my order delivered sooner?
+    - Delivery fast kar sakte ho kya?
+    - jaldi bhej do
+    - can you make it faster
+    - I need this urgently
+    - expedite my order
+
+- intent: get_invoice
+  examples: |
+    - I need a copy of my bill
+    - Mujhe order ki receipt bhej do
+    - send me the invoice
+    - bill kahan hai
+    - email me the receipt
+
+- intent: get_refund_policy
+  examples: |
+    - What is your return policy?
+    - Return karne ka kya process hai?
+    - kitne din mein return kar sakte hain
+    - refund policy kya hai
+    - exchange policy
+
+- intent: get_refund_status
+  examples: |
+    - Where is my refund?
+    - Mera paisa kab tak waapis aayega?
+    - refund status kya hai
+    - check my refund
+    - refund kab milega
+
+- intent: initiate_return
+  examples: |
+    - I need to return this item
+    - Ye product waapis karna hai
+    - I want to send this back
+    - return request daalni hai
+    - mujhe ye nahi chahiye
+
+- intent: initiate_exchange
+  examples: |
+    - I want to exchange this for a different size
+    - Mujhe size M chahiye, L nahi
+    - exchange karna hai
+    - can I get a different color?
+    - ye item exchange karna hai
+
+- intent: report_damaged_item
+  examples: |
+    - My item arrived broken
+    - Product toota hua mila hai
+    - The item is damaged
+    - kharaab product mila hai
+    - item is defective
+
+- intent: report_missing_item
+  examples: |
+    - I only received part of my order
+    - Box mein ek item missing tha
+    - poora order nahi mila
+    - one item is missing
+    - where is the rest of my order
+
+- intent: check_item_availability
+  examples: |
+    - Is the [blue t-shirt](product_name) in stock?
+    - [iPhone 15](product_name) available hai?
+    - do you have [blue jeans](product_name)
+    - [laptop](product_name) stock mein hai kya?
+
+- intent: get_product_details
+  examples: |
+    - What is the price of the [red t-shirt](product_name)?
+    - [laptop](product_name) ki specs kya hain?
+    - tell me more about [blue jeans](product_name)
+    - [red t-shirt](product_name) ka price batao
+    - What material is this shirt?
+
+- intent: ask_for_recommendation
+  examples: |
+    - What are your most popular headphones?
+    - 1000 ke andar best gift dikhao
+    - recommend a [laptop](category)
+    - suggest something
+    - best products dikhao
+    - recommend something under budget of [20000](price_limit:20000)
+    - [1000](price_limit:1000) ke andar best gift dikhao
+    - under [1000](price_limit:1000)
+    - [5000](price_limit:5000) ke neeche
+    - mera budget [2000](price_limit:2000) hai
+    - around [10000](price_limit:10000)
+
+- intent: check_payment_options
+  examples: |
+    - Can I pay with UPI?
+    - Do you accept credit cards?
+    - payment options kya hain
+    - cash on delivery hai?
+
+- intent: check_shipping_options
+  examples: |
+    - Do you offer next-day delivery?
+    - Delhi mein delivery kitne din mein hogi?
+    - shipping options kya hain
+    - fast delivery hai?
+
+- intent: apply_discount_code
+  examples: |
+    - My coupon code isn't working
+    - Discount kaise apply karun?
+    - I have a discount code
+    - [WELCOME10](discount_code) apply karo
+    - use code [SAVE50](discount_code)
+
+- intent: reset_password
+  examples: |
+    - I forgot my password
+    - Password reset karna hai
+    - mera password reset kar do
+    - can't login
+
+- intent: update_profile_info
+  examples: |
+    - I need to update my phone number
+    - Mera [email](email_address) address change karna hai
+    - update my contact info
+    - I want to change my [phone](phone_number)
+    - update my number to [9988776655](phone_number)
+
+- intent: inform_phone
+  examples: |
+    - my new number is [1234523456](phone_number)
+    - it's [9988776655](phone_number)
+    - [1111122222](phone_number)
+    - [phone number]
+
+- intent: inform_email
+  examples: |
+    - my email is [test@example.com](email_address)
+    - [customer1@example.com](email_address)
+    - its [admin@gmail.com](email_address)
+
+- intent: check_loyalty_points
+  examples: |
+    - How many reward points do I have?
+    - Mere points kitne hain?
+    - check my loyalty points
+    - reward points batao
+
+- intent: manage_payment_methods
+  examples: |
+    - How do I delete my saved card?
+    - manage payment methods
+    - remove my credit card
+    - saved cards kahan milenge
+
+- intent: affirm
+  examples: |
+    - Yes
+    - Haan
+    - Theek hai
+    - okay
+    - ji haan
+    - correct
+    - yeah sure 
+    - of course  
+    - yup    
+
+- intent: deny
+  examples: |
+    - No
+    - Nahi
+    - Cancel
+    - rehne do
+    - mat karo
+
+- intent: human_handoff
+  examples: |
+    - I want to talk to a real person
+    - Mujhe customer care se baat karni hai
+    - connect to agent
+    - human please
+    - representative
+
+- intent: bot_capability
+  examples: |
+    - What can you do?
+    - Tum kya kar sakte ho?
+    - help
+    - how does this work
+    - tumhari capabilities kya hain
+
+- intent: out_of_scope
+  examples: |
+    - What's the weather today?
+    - IPL ka score kya hai
+    - tell me a joke
+    - tumhara naam kya hai
+    - who made you
+
+- intent: negative_sentiment
+  examples: |
+    - this is terrible
+    - I am very angry
+    - ye kya bakwaas hai
+    - this is useless
+    - horrible service
+
+- intent: positive_sentiment
+  examples: |
+    - this is amazing!
+    - you are the best bot
+    - wow that was so easy
+    - perfect, thank you!
+    - great service
+    - awesome
+
+- intent: positive_after_delivery
+  examples: |
+    - perfect, thanks!
+    - awesome thank you!
+    - great, got it!
+    - amazing, thanks a lot!
+    - superb, thank you!
+
+- intent: inform
+  examples: |
+    - got it
+    - hmm
+    - alright
+    - done
+    - theek hai
+
+- intent: ask_product_question
+  examples: |
+    - Tell me about this product
+    - What is this product?
+    - What can you tell me about it?
+    - What does this item contain?
+    - Tell me more about it
+    - What is it made of?
+    - Give me details about this
+    - What features does this product have?
+    - Can you describe this item?
+    - What is special about this?
+
+- intent: bot_challenge
+  examples: |
+    - Are you a bot?
+    - Are you human?
+    - Who created you?
+
+- intent: set_product
+  examples: |
+    - set product to [JN012](product_id)
+    - /set_product{"product_id":"HD024"}
+    - /set_product{"product_id":"RT001"}
+    - /set_product{"product_id":"BJ002"}
+    - /set_product{"product_id":"LH003"}
+    - /set_product{"product_id":"WT004"}
+    - /set_product{"product_id":"JK005"}
+    - /set_product{"product_id":"SH006"}
+    - /set_product{"product_id":"BG007"}
+    - /set_product{"product_id":"WS008"}
+    - /set_product{"product_id":"HD009"}
+    - /set_product{"product_id":"PH010"}
+    - /set_product{"product_id":"TS011"}
+    - /set_product{"product_id":"JN012"}
+    - /set_product{"product_id":"SW013"}
+    - /set_product{"product_id":"KP014"}
+    - /set_product{"product_id":"DS015"}
+    - /set_product{"product_id":"HB016"}
+    - /set_product{"product_id":"TS017"}
+    - /set_product{"product_id":"SH018"}
+    - /set_product{"product_id":"BK019"}
+    - /set_product{"product_id":"HP020"}
+    - /set_product{"product_id":"KM021"}
+    - /set_product{"product_id":"WL022"}
+    - /set_product{"product_id":"OF023"}
+
+
+- lookup: product_name
+  examples: |
+    - Grey Joggers
+    - Black T-Shirt
+    - Blue Jeans
+    - Laptop
+    - White Top
+    - Leather Jacket
+    - Running Shoes
+    - Handbag
+    - Wrist Watch
+    - Headphones
+    - Smartphone
+    - Black T-shirt
+    - Smartwatch
+    - Kid's Polo Shirt
+    - Dress Floral
+    - Heels Black
+    - Oversized T-shirt
+    - Sports Shoes
+    - Backpack
+    - Hair dryer
+    - Kid's Marvel T-shirt
+    - Women's Leggings
+    - Men's Navy Hoodie
+    - Men's Office Shirt

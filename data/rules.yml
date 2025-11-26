@@ -1,0 +1,131 @@
+version: "3.1"
+
+rules:
+
+- rule: Handle session start with metadata
+  steps:
+    - action: action_session_start    
+
+- rule: Detect negative sentiment and handoff
+  steps:
+    - intent: negative_sentiment
+    - action: utter_human_handoff
+    - action: action_reset_sentiment_slot 
+
+- rule: Respond to greet
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+
+- rule: Respond to cancel_order intent
+  steps:
+    - intent: cancel_order
+    - action: utter_ask_order_id_to_cancel
+
+- rule: Handle track_order with entity
+  condition:
+    - active_loop: null 
+  steps:
+    - intent: track_order
+      entities:  
+        - order_id
+    - action: action_get_order_status
+
+- rule: Handle cancel_order with entity
+  condition:
+    - active_loop: null
+  steps:
+    - intent: cancel_order
+      entities:  
+        - order_id
+    - action: action_cancel_order
+
+- rule: Handle reinstate_order with entity
+  condition:
+    - active_loop: null
+  steps:
+    - intent: reinstate_order
+      entities:
+        - order_id
+    - action: action_reinstate_order
+
+- rule: Respond to out-of-scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+
+- rule: Show bot capabilities
+  steps:
+    - intent: bot_capability
+    - action: utter_bot_capability
+
+- rule: Handle human handoff
+  steps:
+    - intent: human_handoff
+    - action: utter_human_handoff
+
+- rule: Respond to manage payment methods
+  steps:
+    - intent: manage_payment_methods
+    - action: utter_manage_payment_methods
+
+- rule: Detect positive sentiment and ask for review
+  steps:
+    - intent: positive_sentiment
+    - action: utter_ask_for_review
+
+- rule: User ignores upsell
+  steps:
+    - intent: inform
+    - action: action_reset_upsell_slot
+
+- rule: Handle stock check
+  steps:
+    - intent: check_item_availability
+    - action: action_check_stock
+
+- rule: Handle get product details
+  steps:
+    - intent: get_product_details
+    - action: action_get_product_details
+
+- rule: Handle apply discount
+  steps:
+    - intent: apply_discount_code
+    - action: action_apply_discount
+
+- rule: Trigger upsell after delivered order
+  steps:
+    - intent: positive_after_delivery
+    - action: action_proactive_upsell
+    - action: action_listen
+
+- rule: Handle deny after upsell
+  steps:
+    - intent: deny
+    - action: action_reset_upsell_slot
+    - action: utter_okay_no_problem
+
+- rule: Handle product questions
+  steps:
+    - intent: ask_product_question
+    - action: action_answer_product_question
+
+- rule: Set product context silently
+  steps:
+    - intent: set_product
+    - action: action_set_product
+
+
+
+

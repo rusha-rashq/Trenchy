@@ -1,0 +1,339 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - track_order
+  - inform_order_id
+  - cancel_order
+  - reinstate_order
+  - change_delivery_address  
+  - inform_address           
+  - change_order_details     
+  - expedite_shipping        
+  - get_invoice 
+  - get_refund_policy          
+  - get_refund_status         
+  - initiate_return            
+  - initiate_exchange          
+  - report_damaged_item       
+  - report_missing_item   
+  - check_item_availability
+  - get_product_details
+  - ask_for_recommendation
+  - check_payment_options
+  - check_shipping_options
+  - apply_discount_code     
+  - reset_password
+  - update_profile_info
+  - inform_email
+  - inform_phone
+  - check_loyalty_points
+  - manage_payment_methods
+  - affirm
+  - deny
+  - human_handoff
+  - bot_capability
+  - out_of_scope   
+  - bot_challenge
+  - negative_sentiment
+  - positive_sentiment
+  - inform
+  - ask_product_question
+  - positive_after_delivery
+  - set_product
+  - EXTERNAL_set_product
+
+entities:
+  - order_id
+  - new_address
+  - product_name
+  - category
+  - price_limit
+  - discount_code
+  - email_address
+  - phone_number
+  - sentiment
+  - product_id
+
+slots:
+  new_address:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: new_address
+  order_id:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: order_id
+  product_name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: product_name
+  category:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: category
+  price_limit:
+    type: float
+    mappings:
+    - type: from_entity
+      entity: price_limit
+      intent: ask_for_recommendation
+  discount_code:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: discount_code
+  email_address:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: email_address
+  phone_number:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: phone_number
+      intent: inform_phone
+  sentiment:
+    type: text
+    influence_conversation: true # This is important for rules
+    mappings:
+    - type: from_entity
+      entity: sentiment
+      value: "negative" # Only fill the slot if the value is "negative"
+  order_is_delivered:
+    type: bool
+    influence_conversation: true
+    mappings: []
+  delivery_data:
+    type: any
+    influence_conversation: false
+    mappings: []
+  upsell_opportunity:
+    type: bool
+    influence_conversation: true
+    initial_value: null
+    mappings:
+      - type: custom
+  current_product:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  product_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: product_id
+
+
+
+responses:
+  utter_greet:
+    - text: "Namaste! Main aapki kya sahayata kar sakta hun?"
+
+  utter_goodbye:
+    - text: "Alvida! Aapka din shubh ho."
+
+  utter_ask_order_id:
+    - text: "Zaroor! Kripya apna order ID bataiye."
+
+  utter_default:
+    - text: "Maaf kijiye, main samajh nahi paya."
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+  
+  utter_ask_order_id_to_cancel:
+    - text: "Theek hai, kripya apna order ID bataiye jise aap cancel karna chahte hain."
+  
+  utter_cancel_success:
+    - text: "Aapka order {order_id} safaltapoorvak cancel kar diya gaya hai."
+
+  utter_cancel_fail:
+    - text: "Maaf kijiye, aapka order {order_id} cancel nahi ho sakta."
+
+  utter_ask_order_id_to_reinstate:
+    - text: "Theek hai, kripya apna order ID bataiye jise aap reinstate karna chahte hain."
+  
+  utter_ask_order_id_for_address:
+    - text: "Zaroor, mujhe order ID bataiye jiska address change karna hai."
+
+  utter_ask_new_address:
+    - text: "Samajh gaya. Kripya naya address bataiye."
+  
+  utter_address_change_confirm:
+    - text: "Aapka address update kar diya gaya hai."
+  
+  utter_address_change_fail:
+    - text: "Maaf kijiye, ye order pehle hi 'Shipped' ho chuka hai. Address ab change nahi ho sakta."
+  
+  utter_ask_order_id_for_expedite:
+    - text: "Main koshish karunga. Kripya apna order ID bataiye."
+  
+  utter_expedite_confirm:
+    - text: "Maine aapke order ke liye 'expedite' request daal di hai."
+  
+  utter_expedite_fail:
+    - text: "Maaf kijiye, ye order 'Shipped' ya 'Delivered' hai, ise expedite nahi kar sakte."
+  
+  utter_ask_order_id_for_invoice:
+    - text: "Zaroor, kis order ID ke liye aapko invoice chahiye?"
+  
+  utter_invoice_confirm:
+    - text: "Maine invoice aapke registered email address par bhej diya hai."
+
+  utter_change_order_not_possible:
+    - text: "Maaf kijiye, order details (jaise size, color, ya item) change karne ke liye, kripya customer support se baat karein."
+
+  utter_get_refund_policy:
+    - text: "Aap hamari policy ke anusaar, delivery ke 14 din ke andar items return ya exchange kar sakte hain. Item unused aur original packaging mein hona chahiye."
+
+  utter_ask_order_id_for_refund_status:
+    - text: "Zaroor, kripya apna order ID bataiye jiska refund status check karna hai."
+
+  utter_refund_status_msg:
+    - text: "Aapke order ID {order_id} ka refund status hai: '{status}'."
+
+  utter_no_refund_found:
+    - text: "Maaf kijiye, mujhe us order ID {order_id} ke liye koi refund request nahi mili."
+
+  utter_ask_order_id_for_return:
+    - text: "Theek hai, kripya apna order ID bataiye jise aap return karna chahte hain."
+  
+  utter_return_confirm:
+    - text: "Aapki order ID {order_id} ke liye return request le li gayi hai. Hamara agent jald hi pickup ke liye aapse sampark karega."
+
+  utter_ask_order_id_for_exchange:
+    - text: "Bilkul, kripya apna order ID bataiye jise aap exchange karna chahte hain."
+  
+  utter_exchange_confirm:
+    - text: "Aapki order ID {order_id} ke liye exchange request note kar li gayi hai."
+
+  utter_ask_order_id_for_damaged:
+    - text: "Oh, ye sun kar afsos hua. Kripya apna order ID bataiye taaki main complaint register kar sakun."
+  
+  utter_damaged_report_confirm:
+    - text: "Maaf kijiye. Maine order ID {order_id} ke liye 'damaged item' ki report darj kar li hai. Hamari team aapse jald hi sampark karegi."
+
+  utter_ask_order_id_for_missing:
+    - text: "Maaf kijiye. Kripya apna order ID bataiye taaki main isse check kar sakun."
+  
+  utter_missing_report_confirm:
+    - text: "Maine order ID {order_id} ke liye 'missing item' ki report darj kar li hai. Hum isse jald se jald investigate karenge."
+  
+  utter_already_processing_return:
+    - text: "Aapke order ID {order_id} ke liye pehle se hi ek request process mein hai. Uska status hai: '{status}'."
+
+  utter_ask_product_name_for_stock:
+    - text: "Zaroor, aap kis product ka stock check karna chahte hain?"
+  utter_item_in_stock:
+    - text: "Haanji, {product_name} abhi stock mein hai."
+  utter_item_out_of_stock:
+    - text: "Maaf kijiye, {product_name} abhi stock mein nahi hai."
+  utter_product_not_found:
+    - text: "Maaf kijiye, mujhe '{product_name}' naam ka koi product nahi mila."
+
+  utter_ask_product_name_for_details:
+    - text: "Zaroor, aap kis product ke baare mein jaanna chahte hain?"
+  utter_product_details:
+    - text: "Product: {product_name}\nDetails: {description}\nPrice: ₹{price}"
+  
+  utter_ask_price_range:
+    - text: "Zaroor! Aapka budget kitna hai? (e.g., '5000 ke andar')"
+  utter_recommend_product:
+    - text: "Aapke budget ke hisaab se, main ye recommend karunga:\n- {product_name} (Price: ₹{price})"
+  utter_no_recommendation_found:
+    - text: "Maaf kijiye, mujhe us price range mein koi popular item nahi mila."
+
+  utter_payment_options:
+    - text: "Hum Credit Card, Debit Card, UPI (Google Pay, PhonePe), aur Netbanking accept karte hain. Cash on Delivery (COD) select items par available hai."
+  
+  utter_shipping_options:
+    - text: "Hum standard delivery (3-5 business days) aur express delivery (1-2 business days, extra charge) offer karte hain."
+  
+  utter_ask_discount_code:
+    - text: "Aapke paas jo discount code hai, kripya woh bataiye."
+  utter_discount_applied:
+    - text: "Aapka code '{discount_code}' apply ho gaya hai! Aapko {percent}% ka discount milega."
+  utter_discount_invalid:
+    - text: "Maaf kijiye, code '{discount_code}' valid nahi hai ya aapki minimum purchase requirement (₹{min_purchase}) poori nahi hui."
+
+  utter_ask_email:
+    - text: "Zaroor, kripya apna registered email address bataiye."
+  
+  utter_account_not_found:
+    - text: "Maaf kijiye, mujhe is email address se koi account nahi mila."
+  
+  utter_reset_password_link_sent:
+    - text: "Maine aapke email {email_address} par password reset link bhej diya hai. Kripya apna inbox check karein."
+  
+  utter_ask_new_phone_number:
+    - text: "Theek hai, aapka naya phone number kya hai?"
+
+  utter_profile_updated:
+    - text: "Aapka phone number safaltapoorvak update kar diya gaya hai."
+  
+  utter_loyalty_points:
+    - text: "Aapke account mein {loyalty_points} loyalty points hain."
+  
+  utter_manage_payment_methods:
+    - text: "Aap apne saved payment methods ko hamari website ya app par 'My Account' section se manage kar sakte hain."
+  
+  utter_human_handoff:
+    - text: "Main samajh sakta hoon. Adhik sahayata ke liye, kripya hamare customer support ko 1800-123-4567 par call karein."
+
+  utter_bot_capability:
+    - text: "Main aapki sahayata in cheezon mein kar sakta hoon:\n* Order track, cancel, ya change karna\n* Returns ya exchanges process karna\n* Product details aur stock check karna\n* Account points check karna ya password reset karna"
+
+  utter_out_of_scope:
+    - text: "Maaf kijiye, main ek e-commerce assistant hoon aur uss baare mein jaankari nahi rakhta."
+
+  utter_ask_for_review:
+    - text: "That's wonderful to hear! We're so glad we could help."
+    - text: "Since you had a good experience, would you mind leaving us a quick review? It helps us a lot!"
+
+  utter_okay_no_problem:
+    - text: "Theek hai, koi baat nahi! 😊"
+
+
+
+actions:
+  - action_get_order_status  
+  - action_cancel_order
+  - action_reinstate_order
+  - action_change_address         
+  - action_expedite_shipping      
+  - action_get_invoice            
+  - action_change_order_details   
+  - action_get_refund_status     
+  - action_initiate_return      
+  - action_initiate_exchange   
+  - action_report_damaged_item  
+  - action_report_missing_item
+  - action_check_stock
+  - action_get_product_details
+  - action_get_recommendation
+  - action_apply_discount
+  - action_check_loyalty_points
+  - action_reset_password
+  - action_update_profile
+  - action_reset_sentiment_slot
+  - action_proactive_upsell
+  - action_reset_upsell_slot
+  - action_session_start
+  - action_store_metadata
+  - action_answer_product_question
+  - action_set_product
+  - action_set_product_external
+  
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

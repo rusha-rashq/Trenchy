@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trenchy — Modern E-Commerce</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================= GLOBAL ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        /* ================= NAVBAR ================= */
+        header.navbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #0D47A1, #1E88E5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .navbar nav a:hover {
+            color: #1E88E5;
+        }
+
+        .navbar .icons span {
+            margin-left: 1rem;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+            width: 100%;
+            padding: 5rem 2rem;
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #0D47A1, #1E88E5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #444;
+        }
+
+        /* ================= PRODUCT GRID ================= */
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0D47A1;
+            margin-bottom: 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.15);
+            transform: translateY(0);
+            transition: all 0.35s ease;
+            animation: slideUp 0.8s ease forwards;
+            backdrop-filter: blur(6px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(30, 136, 229, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-card .info {
+            padding: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #0D47A1;
+        }
+
+        .price {
+            font-weight: 700;
+            color: #1E88E5;
+            font-size: 1.15rem;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background: linear-gradient(135deg, #0D47A1, #1E88E5);
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* ================= ANIMATIONS ================= */
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes slideUp {
+            from {opacity: 0; transform: translateY(40px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* ================= CHAT BUTTON ================= */
+        #chat-launcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #1E88E5, #0D47A1);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 12px 25px rgba(0, 86, 179, 0.4);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            z-index: 50;
+        }
+
+        #chat-launcher img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+
+        #chat-launcher:hover {
+            transform: scale(1.18) rotate(6deg);
+            box-shadow: 0 18px 35px rgba(0, 86, 179, 0.55);
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">Trenchy</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products/men.html">Men</a>
+            <a href="products/women.html">Women</a>
+            <a href="products/misc.html">Misc</a>
+            <a href="products/kids.html">Kids</a>
+        </nav>
+
+        <div class="icons">
+            <span>🛒</span>
+            <span>👤</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Style That Speaks.</h1>
+        <p>Premium trends. Unmatched comfort. Hand-picked collections curated for you.</p>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid"></div>
+    </div>
+
+    <footer>
+        © 2025 Trenchy — All Rights Reserved.
+    </footer>
+
+    <!-- Floating Chat Launcher -->
+    <div id="chat-launcher">
+        <img src="images/bot avatar 2.jpg">
+    </div>
+
+    <script>
+    // Load Rasa widget on click
+    document.getElementById("chat-launcher").onclick = function () {
+        this.style.display = "none"; // hide custom launcher
+
+        !(function () {
+            let e = document.createElement("script"),
+                t = document.head || document.documentElement;
+            e.src = "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js";
+            e.async = true;
+
+            // store product_id clicked (homepage card)
+            window.selectedProductId = null;
+
+            e.onload = () => {
+                window.WebChat.default({
+                    customData: { language: "en" }, 
+                    socketUrl: "http://localhost:5005",
+                    socketPath: "/socket.io/",
+                    initPayload: "/greet",
+
+                    title: "E-commerce Support",
+                    subtitle: "Ask me in Hinglish!",
+                    profileAvatar: "images/bot avatar 2.jpg",
+                    showCloseButton: true,
+                    showFullScreenButton: true,
+                    showMessageDate: true,
+                    inputTextPlaceholder: "Type your message...",
+                    sessionStorage: "clear",
+                    launcherButton: false,
+
+                    onSocketEvent: {
+                        "user_uttered": (event) => {
+                            const url = window.location.href;
+                            const params = new URLSearchParams(window.location.search);
+                            const pidFromURL = params.get("id"); // for product.html
+                            const pidFromClick = window.selectedProductId; // homepage click
+
+                            const finalPID = pidFromClick || pidFromURL || null;
+
+                            event.metadata = {
+                                product_id: finalPID,
+                                page_url: url
+                            };
+
+                            return event;
+                        }
+                    }
+                });
+            };
+
+            t.appendChild(e);
+        })();
+    };
+</script>
+
+<script>
+    fetch("http://localhost:8000/products")
+    .then(res => res.json())
+    .then(products => {
+        const grid = document.querySelector(".product-grid");
+
+        products.forEach(p => {
+            grid.innerHTML += `
+                <div class="product-card"
+                     onclick="window.selectedProductId='${p.id}';
+                              window.WebChat && window.WebChat.send({
+                                  message: '/set_product{"product_id":"${p.id}"}'
+                              });">
+
+                    <img src="${p.image}">
+                    <div class="info">
+                        <h3>${p.name}</h3>
+                        <p class="price">₹${p.price}</p>
+                    </div>
+                </div>
+            `;
+        });
+    });
+</script>
+
+
+</body>
+</html>

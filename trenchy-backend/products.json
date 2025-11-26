@@ -1,0 +1,242 @@
+[
+  {
+    "id": "RT001",
+    "name": "Black T-Shirt",
+    "description": "A 100% cotton black t-shirt.",
+    "price": 499.0,
+    "stock_level": 50,
+    "category": "men",
+    "popularity": 5,
+    "image": "images/classic t-shirt.jpg"
+  },
+  {
+    "id": "BJ002",
+    "name": "Blue Jeans",
+    "description": "Classic fit blue denim jeans.",
+    "price": 1299.0,
+    "stock_level": 30,
+    "category": "women",
+    "popularity": 8,
+    "image": "images/denim jeans.jpg"
+  },
+  {
+    "id": "LH003",
+    "name": "Laptop",
+    "description": "A 15-inch laptop with 16GB RAM.",
+    "price": 75000.0,
+    "stock_level": 10,
+    "category": "misc",
+    "popularity": 10,
+    "image": "images/laptop.jpg"
+  },
+  {
+    "id": "WT004",
+    "name": "White Top",
+    "description": "Soft cotton white women's top.",
+    "price": 699.0,
+    "stock_level": 40,
+    "category": "women",
+    "popularity": 6,
+    "image": "images/white tshirt.png"
+  },
+  {
+    "id": "JK005",
+    "name": "Leather Jacket",
+    "description": "Black faux leather biker jacket.",
+    "price": 3999.0,
+    "stock_level": 15,
+    "category": "women",
+    "popularity": 9,
+    "image": "images/leather jacket.png"
+  },
+  {
+    "id": "SH006",
+    "name": "Running Shoes",
+    "description": "Lightweight breathable running shoes.",
+    "price": 2499.0,
+    "stock_level": 25,
+    "category": "misc",
+    "popularity": 7,
+    "image": "images/running shoes.png"
+  },
+  {
+    "id": "BG007",
+    "name": "Handbag",
+    "description": "Stylish crossbody handbag for daily use.",
+    "price": 1599.0,
+    "stock_level": 0,
+    "category": "misc",
+    "popularity": 8,
+    "image": "images/crossbody sling bag.png"
+  },
+  {
+    "id": "WS008",
+    "name": "Wrist Watch",
+    "description": "Minimal analog watch with steel strap.",
+    "price": 2999.0,
+    "stock_level": 12,
+    "category": "misc",
+    "popularity": 7,
+    "image": "images/wrist watch.png"
+  },
+  {
+    "id": "HD009",
+    "name": "Headphones",
+    "description": "Noise-cancelling wireless headphones.",
+    "price": 3499.0,
+    "stock_level": 5,
+    "category": "misc",
+    "popularity": 9,
+    "image": "images/headphones.png"
+  },
+  {
+    "id": "PH010",
+    "name": "Smartphone",
+    "description": "6.5-inch display smartphone with 128GB storage.",
+    "price": 19999.0,
+    "stock_level": 20,
+    "category": "misc",
+    "popularity": 10,
+    "image": "images/smartphone.png"
+  },
+  {
+    "id": "TS011",
+    "name": "Black T-Shirt",
+    "description": "Classic fit black t-shirt.",
+    "price": 499.0,
+    "stock_level": 80,
+    "category": "men",
+    "popularity": 9,
+    "image": "images/classic black t-shirt.png"
+  },
+  {
+    "id": "JN012",
+    "name": "Grey Joggers",
+    "description": "Comfortable premium cotton joggers.",
+    "price": 999.0,
+    "stock_level": 35,
+    "category": "men",
+    "popularity": 8,
+    "image": "images/grey joggers.png"
+  },
+  {
+    "id": "SW013",
+    "name": "Smartwatch",
+    "description": "Fitness tracking smartwatch.",
+    "price": 4999.0,
+    "stock_level": 18,
+    "category": "misc",
+    "popularity": 9,
+    "image": "images/smart watch.png"
+  },
+  {
+    "id": "KP014",
+    "name": "Kids Polo Shirt",
+    "description": "Soft cotton polo shirt for kids.",
+    "price": 399.0,
+    "stock_level": 60,
+    "category": "kids",
+    "popularity": 7,
+    "image": "images/kids polo.png"
+  },
+  {
+    "id": "DS015",
+    "name": "Dress - Floral",
+    "description": "Beautiful floral printed summer dress.",
+    "price": 1299.0,
+    "stock_level": 22,
+    "category": "women",
+    "popularity": 8,
+    "image": "images/floral dress.png"
+  },
+  {
+    "id": "HB016",
+    "name": "Heels Black",
+    "description": "Black high heels suitable for parties.",
+    "price": 1799.0,
+    "stock_level": 11,
+    "category": "misc",
+    "popularity": 7,
+    "image": "images/black heels.png"
+  },
+  {
+    "id": "TS017",
+    "name": "Oversized T-Shirt",
+    "description": "Trendy oversized graphic tee.",
+    "price": 599.0,
+    "stock_level": 55,
+    "category": "men",
+    "popularity": 9,
+    "image": "images/graphic t-shirt.png"
+  },
+  {
+    "id": "SH018",
+    "name": "Sports Shoes",
+    "description": "High-performance sports shoes.",
+    "price": 2899.0,
+    "stock_level": 17,
+    "category": "misc",
+    "popularity": 8,
+    "image": "images/sneakers.png"
+  },
+  {
+    "id": "BK019",
+    "name": "Backpack",
+    "description": "Durable waterproof travel backpack.",
+    "price": 1899.0,
+    "stock_level": 0,
+    "category": "misc",
+    "popularity": 9,
+    "image": "images/backpack.png"
+  },
+  {
+    "id": "HP020",
+    "name": "Hair Dryer",
+    "description": "1200W compact hair dryer.",
+    "price": 999.0,
+    "stock_level": 28,
+    "category": "misc",
+    "popularity": 6,
+    "image": "images/hair dryer.png"
+  },
+  {
+    "id": "KM021",
+    "name": "Kids Marvel T-shirt",
+    "description": "Avengers printed kids t-shirt.",
+    "price": 499.0,
+    "stock_level": 44,
+    "category": "kids",
+    "popularity": 8,
+    "image": "images/avengers tshirt.png"
+  },
+  {
+    "id": "WL022",
+    "name": "Women Leggings",
+    "description": "High-stretch premium black leggings.",
+    "price": 799.0,
+    "stock_level": 30,
+    "category": "women",
+    "popularity": 9,
+    "image": "images/black leggings.png"
+  },
+  {
+    "id": "OF023",
+    "name": "Office Shirt",
+    "description": "Light blue striped office wear shirt.",
+    "price": 1199.0,
+    "stock_level": 20,
+    "category": "men",
+    "popularity": 7,
+    "image": "images/ruled shirt.png"
+  },
+  {
+    "id": "HD024",
+    "name": "Men's Navy Hoodie",
+    "description": "Soft, warm navy blue hoodie made from premium fleece fabric.",
+    "price": 1599.0,
+    "stock_level": 32,
+    "category": "men",
+    "popularity": 8,
+    "image": "images/navy blue hoodie.png"
+  }
+]

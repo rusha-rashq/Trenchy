@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Women — Trenchy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+    margin: 0;
+}
+
+header.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #0D47A1, #1E88E5);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.navbar nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.navbar nav a:hover { color: #1E88E5; }
+
+.navbar nav a.active {
+    color: #1E88E5;
+    font-weight: 600;
+}
+
+.navbar .icons span {
+    margin-left: 1rem;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0D47A1;
+    margin-bottom: 2rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.15);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(30, 136, 229, 0.3);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.info { padding: 1rem; }
+h3 { margin: 0; color: #0D47A1; font-size: 1.1rem; }
+.price { color: #1E88E5; font-weight: 600; font-size: 1rem; }
+
+/* CHAT BUTTON */
+#chat-launcher {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(145deg, #1E88E5, #0D47A1);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 12px 25px rgba(0, 86, 179, 0.4);
+    transition: transform 0.35s ease;
+    z-index: 999;
+}
+#chat-launcher img { width:42px;height:42px;border-radius:50%; }
+#chat-launcher:hover { transform: scale(1.18) rotate(6deg); }
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">Trenchy</div>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="men.html">Men</a>
+        <a href="women.html" class="active">Women</a>
+        <a href="misc.html">Misc</a>
+        <a href="kids.html">Kids</a>
+    </nav>
+
+    <div class="icons">
+        <span>🛒</span>
+        <span>👤</span>
+    </div>
+</header>
+
+<div class="container">
+    <h2 class="section-title">Women's Collection</h2>
+    <div class="product-grid"></div>
+</div>
+
+<script>
+// Shared product context
+window.selectedProductId = null;
+
+// Load women's products
+fetch("http://localhost:8000/products")
+  .then(res => res.json())
+  .then(products => {
+      const grid = document.querySelector(".product-grid");
+      const filtered = products.filter(p => p.category === "women");
+
+      filtered.forEach(p => {
+          grid.innerHTML += `
+             <div class="product-card"
+                  onclick="onProductClick('${p.id}')">
+               <img src="../${p.image}">
+               <div class="info">
+                   <h3>${p.name}</h3>
+                   <p class="price">₹${p.price}</p>
+               </div>
+             </div>
+          `;
+      });
+  });
+
+// When user clicks a card
+function onProductClick(id) {
+    window.selectedProductId = id;
+
+    // If chat is open already, tell Rasa directly
+    if (window.WebChat?.send) {
+        window.WebChat.send({
+            message: `/set_product{"product_id":"${id}"}`
+        });
+    }
+
+    // Navigate to product page
+    window.location.href = "../product.html?id=" + id;
+}
+</script>
+
+<!-- Floating Chat Button -->
+<div id="chat-launcher">
+    <img src="../images/bot avatar 2.jpg">
+</div>
+
+<script>
+// Load chat widget with metadata support
+document.getElementById("chat-launcher").onclick = function () {
+    this.style.display = "none";
+
+    (function () {
+        let e = document.createElement("script");
+        e.src = "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js";
+        e.async = true;
+
+        e.onload = () => {
+            window.WebChat.default({
+                customData: { language: "en" },
+                socketUrl: "http://localhost:5005",
+                socketPath: "/socket.io/",
+                initPayload: "/greet",
+                launcherButton: false,
+
+                title: "E-commerce Support",
+                subtitle: "Ask me anything!",
+                profileAvatar: "../images/bot avatar 2.jpg",
+                showFullScreenButton: true,
+                showCloseButton: true,
+
+                onSocketEvent: {
+                    "user_uttered": (event) => {
+                        const params = new URLSearchParams(window.location.search);
+                        const idFromURL = params.get("id");
+                        const currentUrl = window.location.href;
+
+                        event.metadata = {
+                            product_id: window.selectedProductId || idFromURL || null,
+                            page_url: currentUrl
+                        };
+
+                        return event;
+                    }
+                }
+            });
+        };
+
+        document.head.appendChild(e);
+    })();
+};
+</script>
+
+</body>
+</html>
