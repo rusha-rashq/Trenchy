@@ -19,6 +19,7 @@ Custom actions for stock lookup, recommendations, order status, cancellation, et
 Trenchy brings real-time, product-aware reasoning to online shopping.
 
 🚀 Key Features
+
 🧠 1. Hinglish NLU
 
 Understands mixed-language queries such as:
