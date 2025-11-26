@@ -236,6 +236,3 @@ If you use this project in research, please cite:
   year={2025},
   author={Dhar, Rushali}
 }
-
-
-If you'd like, I can also generate:
