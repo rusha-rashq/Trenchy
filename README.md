@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ## **Trenchy: A Context-Aware Code-Mixed E-Commerce Chatbot**
 
 Trenchy is a Hinglish-aware, product-contextual customer-support chatbot built with  Rasa 3.x , a  custom FastAPI backend , and a frontend website integrated via rasa-webchat.
